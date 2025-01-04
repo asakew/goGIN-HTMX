@@ -7,7 +7,7 @@
 - uz version@Standard Go Project Layout: https://github.com/goLang-Uzbekistan/goLang-project-layout-v2
 - SQLite: https://github.com/mattn/go-sqlite3/
 
-## Examples
+## HTMX Examples
 - HTMX: https://htmx.org/server-examples/
     - templ https://templ.guide/server-side-rendering/htmx/
     - Tailwind: https://github.com/jritsema/go-htmx-tailwind-example/
@@ -16,3 +16,16 @@
   -  https://github.com/chasefleming/elem-go/tree/main/examples/htmx-fiber-todo/
 - htmgo
   -  https://htmgo.dev/
+
+
+## Get start
+git clone
+```bash
+git clone https://github.com/asakew/goGIN-HTMX.git
+```
+
+## Project Packages: Download/Update
+```bash
+go mod tidy
+```
+
