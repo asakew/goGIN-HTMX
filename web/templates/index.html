@@ -20,8 +20,12 @@
     {{end}}
 </ul>
 <form hx-post="/todos" hx-target="#tasks" hx-swap="beforeend">
-    <input name="title" />
-    <input name="status" />
+    <label>
+        <input name="title" placeholder="Title"/>
+    </label>
+    <label>
+        <input name="status" placeholder="Status"/>
+    </label>
 </form>
 <button>Save</button>
 
