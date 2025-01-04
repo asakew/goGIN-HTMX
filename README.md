@@ -8,6 +8,7 @@
 - SQLite: https://github.com/mattn/go-sqlite3/
 
 ## HTMX Examples
+- https://www.awesome.club/blog/2024/the-simplest-tech-stack/
 - HTMX: https://htmx.org/server-examples/
     - templ https://templ.guide/server-side-rendering/htmx/
     - Tailwind: https://github.com/jritsema/go-htmx-tailwind-example/
@@ -29,7 +30,6 @@ Download: GIN and SQLite
 ```bash
 go get -u github.com/gin-gonic/gin && go get -u github.com/mattn/go-sqlite3
 ```
-
 
 Packages Modify:
 ```bash
