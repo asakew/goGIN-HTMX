@@ -1,0 +1,28 @@
+<!--https://www.awesome.club/blog/2024/the-simplest-tech-stack-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.js" integrity="sha384-oeUn82QNXPuVkGCkcrInrS1twIxKhkZiFfr2TdiuObZ3n3yIeMiqcRzkIcguaof1" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<h1>ToDo List</h1>
+<form hx-post="/tasks" hx-target="#task-list" hx-swap="innerHTML">
+    <input type="text" name="name" required>
+    <button type="submit">Add Task</button>
+</form>
+<ul id="task-list">
+    {{range .tasks}}
+    <li id="task-{{.ID}}">
+        <span>{{.Name}}</span>
+        <button hx-delete="/tasks/{{.ID}}" hx-target="#task-list" hx-swap="innerHTML">Delete</button>
+    </li>
+    {{end}}
+</ul>
+
+
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+<li id="task-{{.ID}}">
+  <span>{{.Name}}</span>
+  <button hx-delete="/tasks/{{.ID}}" hx-target="#task-list" hx-swap="innerHTML">Delete</button>
+</li>

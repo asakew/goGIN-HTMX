@@ -16,18 +16,17 @@ func DBSQLite() {
 		log.Fatal(err)
 	}
 
-	_, err = SQLiteDB.Exec(`
-    CREATE TABLE IF NOT EXISTS todos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            status TEXT
-    );`)
-
-	log.Printf("Database initialized")
-
+	stmt := `
+    CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL
+    );`
+	_, err = SQLiteDB.Exec(stmt)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Printf("Database initialized")
 }
 
 func CloseDatabase() {

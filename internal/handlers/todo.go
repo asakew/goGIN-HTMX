@@ -1,55 +1,53 @@
 package handlers
 
 import (
-	"database/sql"
+	"github.com/gin-gonic/gin"
 	"goGIN-HTMX/internal/database"
 	"goGIN-HTMX/internal/models"
+	"net/http"
 )
 
-func CreateToDo(title string, status string) (int64, error) {
-	result, err := database.SQLiteDB.Exec("INSERT INTO todos (title, status) VALUES (?, ?)", title, status)
+func GetTasks(c *gin.Context) {
+	rows, err := database.SQLiteDB.Query("SELECT id, name FROM tasks")
 	if err != nil {
-		return 0, err
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to query database"})
+		return
 	}
+	defer rows.Close()
 
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-	return id, nil
-}
-
-func DeleteToDo(id int64) error {
-	_, err := database.SQLiteDB.Exec("DELETE FROM todos WHERE id = ?", id)
-	return err
-}
-
-func ReadToDoList() []models.ToDo {
-	rows, err := database.SQLiteDB.Query("SELECT id, title, status FROM todos")
-	if err != nil {
-	}
-	defer func(rows *sql.Rows) {
-		err := rows.Close()
-		if err != nil {
+	var tasks []models.Task
+	for rows.Next() {
+		var task models.Task
+		if err := rows.Scan(&task.ID, &task.Name); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-	}(rows)
+		tasks = append(tasks, task)
+	}
 
-	todos := make([]models.ToDo, 0)
-	for rows.Next() {
-		var todo models.ToDo
-		err := rows.Scan(&todo.Id, &todo.Title, &todo.Status)
-		if err != nil {
-		}
-		todos = append(todos, todo)
-	}
-	if err := rows.Err(); err != nil {
-		// Handle error
-	}
-	return todos
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+		"tasks": tasks,
+	})
 }
 
-//func UpdateToDo(id int64, title string, status string) error {
-//	_, err := database.SQLiteDB.Exec("UPDATE todos SET title = ?, status = ? WHERE id = ?", title, status, id)
-//	return err
-//}
+func AddTask(c *gin.Context) {
+	name := c.PostForm("name")
+	_, err := database.SQLiteDB.Exec("INSERT INTO tasks (name) VALUES (?)", name)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to insert into database"})
+		return
+	}
+
+	// Вернём обновлённый список задач
+	GetTasks(c)
+}
+
+func DeleteTask(c *gin.Context) {
+	id := c.Param("id")
+	_, err := database.SQLiteDB.Exec("DELETE FROM tasks WHERE id = ?", id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to delete from database"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"status": "Task deleted"})
+}

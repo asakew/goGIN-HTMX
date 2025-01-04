@@ -16,7 +16,7 @@ func main() {
 
 	// Routes
 	routes.HTMLRendering(e)
-	routes.TodoRoutes(e)
+	routes.TaskRoutes(e)
 
 	// Start Server
 	log.Printf("Starting server on port http://localhost:8080")
