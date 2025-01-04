@@ -29,7 +29,10 @@ func ReadToDoList() []models.ToDo {
 	if err != nil {
 	}
 	defer func(rows *sql.Rows) {
-		rows.Close()
+		err := rows.Close()
+		if err != nil {
+			return
+		}
 	}(rows)
 
 	todos := make([]models.ToDo, 0)

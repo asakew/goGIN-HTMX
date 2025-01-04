@@ -1,11 +1,10 @@
 package main
 
 import (
-	"goGIN-HTMX/internal/database"
-	"log"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"goGIN-HTMX/internal/database"
+	"goGIN-HTMX/internal/routes"
+	"log"
 )
 
 func main() {
@@ -13,17 +12,11 @@ func main() {
 
 	// Database
 	database.DBSQLite()
-
-	// HTML Rendering
-	e.LoadHTMLGlob("web/templates/*")
-	e.Static("/files", "web/files")
+	defer database.CloseDatabase()
 
 	// Routes
-	e.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"name": "Awesome",
-		})
-	})
+	routes.HTMLRendering(e)
+	routes.TodoRoutes(e)
 
 	// Start Server
 	log.Printf("Starting server on port http://localhost:8080")
