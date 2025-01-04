@@ -23,6 +23,8 @@ func DBSQLite() {
             status TEXT
     );`)
 
+	log.Printf("Database initialized")
+
 	if err != nil {
 		log.Fatal(err)
 	}
