@@ -3,6 +3,9 @@
 ## Dependencies
 - goLang GIN: https://gin-gonic.com/ + https://github.com/gin-gonic/gin/
 - HTMX: https://htmx.org/
+- Standard Go Project Layout: https://github.com/golang-standards/project-layout/
+- uz version@Standard Go Project Layout: https://github.com/goLang-Uzbekistan/goLang-project-layout-v2
+- SQLite: https://github.com/mattn/go-sqlite3/
 
 ## Examples
 - HTMX: https://htmx.org/server-examples/
