@@ -25,6 +25,13 @@ git clone https://github.com/asakew/goGIN-HTMX.git
 ```
 
 ## Project Packages: Download/Update
+Download: GIN and SQLite
+```bash
+go get -u github.com/gin-gonic/gin && go get -u github.com/mattn/go-sqlite3
+```
+
+
+Packages Modify:
 ```bash
 go mod tidy
 ```
