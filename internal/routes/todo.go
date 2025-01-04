@@ -12,6 +12,7 @@ func TodoRoutes(e *gin.Engine) {
 		title := c.PostForm("title")
 		status := c.PostForm("status")
 		id, _ := handlers.CreateToDo(title, status)
+
 		c.HTML(http.StatusOK, "task.html", gin.H{
 			"title":  title,
 			"status": status,
@@ -22,10 +23,10 @@ func TodoRoutes(e *gin.Engine) {
 	e.DELETE("/todos/:id", func(c *gin.Context) {
 		param := c.Param("id")
 		id, _ := strconv.ParseInt(param, 10, 64)
+
 		err := handlers.DeleteToDo(id)
 		if err != nil {
 			return
 		}
-		// Handle response, e.g., return a success message
 	})
 }
